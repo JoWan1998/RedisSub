@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"log"
 
 	"github.com/go-redis/redis/v8"
@@ -53,9 +52,7 @@ func subscribeMessages() {
 	ch := pubsub.Channel()
 
 	for msg := range ch {
-		var body map[string]interface{}
-		data := json.Unmarshal([]byte(msg.Payload), &body)
-		log.Println("Mensaje: ", data)
+		log.Println("Mensaje: ", msg.String())
 	}
 }
 
