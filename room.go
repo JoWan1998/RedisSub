@@ -59,12 +59,16 @@ func subscribeMessages() {
 		post := []byte(msg.Payload)                                                                                 //convertimos a una cadena de bytes
 		req, err := http.Post("http://34.66.140.170:8080/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
 		req.Header.Set("Content-Type", "application/json")
-		log.Fatal("Post nuevo documento... ", err)
+		if err != nil {
+			log.Fatal("Post nuevo documento... ", err)
+		}
 		defer req.Body.Close() // cerramos el body
 
 		//Leyendo la respuesta del cuerpo
 		nuevo, err := ioutil.ReadAll(req.Body) //se convierte en cadena
-		log.Fatal("Leyendo Respuesta desde el Post Http... ", err)
+		if err != nil {
+			log.Fatal("Leyendo Respuesta desde el Post Http... ", err)
+		}
 		sb := string(nuevo) //lo transformamos en una cadena
 		log.Printf(sb)
 	}
