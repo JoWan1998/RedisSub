@@ -47,7 +47,7 @@ func subscribeMessages() {
 
 	redis := redis.NewClient(opt)
 
-	pubsub := redis.Subscribe(context.Background(), "mensajes")
+	pubsub := redis.Subscribe(context.Background(), "mensaje")
 	log.Println("subscriber listen on... ")
 	ch := pubsub.Channel()
 
