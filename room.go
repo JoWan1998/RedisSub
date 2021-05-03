@@ -2,7 +2,11 @@ package main
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"log"
+	"net/http"
+	"time"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -52,7 +56,12 @@ func subscribeMessages() {
 	ch := pubsub.Channel()
 
 	for msg := range ch {
-		log.Println("Mensaje: ", []byte(msg.Payload))
+		var body map[string]interface{}
+		errors1 := json.NewDecoder([]byte((string(msg.Payload))).Decode(&body)
+		log.Println("Error Parseando JSON: ", errors1)
+		data, err := json.Marshal(body)
+		log.Println("Error Reading Body: ", err)
+		log.Println("Mensaje: ", data)
 	}
 }
 
