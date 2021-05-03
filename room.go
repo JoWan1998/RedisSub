@@ -23,7 +23,7 @@ func CreateRedisClient() {
 */
 /*
 func publishMessage(message []byte) {
-	opt, err := redis.ParseURL("redis://localhost:6364/0")
+	opt, err := redis.ParseURL("redis://localhost:6379/0")
 	if err != nil {
 		panic(err)
 	}
@@ -40,7 +40,7 @@ func publishMessage(message []byte) {
 func subscribeMessages() {
 
 	log.Println("Connection Subscriber...")
-	opt, err := redis.ParseURL("redis://localhost:6364/0")
+	opt, err := redis.ParseURL("redis://localhost:6379/0")
 	if err != nil {
 		panic(err)
 	}
