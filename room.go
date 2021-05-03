@@ -52,7 +52,7 @@ func subscribeMessages() {
 	ch := pubsub.Channel()
 
 	for msg := range ch {
-		log.Println("Mensaje: ", []byte(msg.Payload))
+		log.Println("Mensaje: ", string([]byte(msg.Payload)))
 	}
 }
 
