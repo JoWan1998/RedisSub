@@ -1,6 +1,6 @@
 FROM golang
-WORKDIR /usr/local/Sub
-COPY . /usr/local/Sub
+WORKDIR /usr/app/Sub
+COPY . /usr/app/Sub
 RUN go mod download
 RUN go get -d -v ./...
 RUN go install -v ./...
