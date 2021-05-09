@@ -56,8 +56,8 @@ func subscribeMessages() {
 
 	for msg := range ch {
 		log.Println("Mensaje: ", string([]byte(msg.Payload)))
-		post := []byte(msg.Payload)                                                                                 //convertimos a una cadena de bytes
-		req, err := http.Post("http://34.66.140.170:8080/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
+		post := []byte(msg.Payload)                                                                                //convertimos a una cadena de bytes
+		req, err := http.Post("http://35.223.156.4:7019/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
 		req.Header.Set("Content-Type", "application/json")
 		if err != nil {
 			log.Fatal("Post nuevo documento... ", err)
