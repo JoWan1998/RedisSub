@@ -100,10 +100,5 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 }*/
 
 func main() {
-	http.HandleFunc("/", createTask)
-	fmt.Println("Server listening on port 8081...")
-	if errors := http.ListenAndServe(":8081", nil); errors != nil {
-		log.Fatal(errors)
-	}
 	subscribeMessages()
 }
