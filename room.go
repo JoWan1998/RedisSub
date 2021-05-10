@@ -80,6 +80,21 @@ func subscribeMessages() {
 		}
 		sb := string(nuevo) //lo transformamos en una cadena
 		log.Printf(sb)
+		//http://35.223.156.4:7019/nuevoRegistro
+		req1, err1 := http.Post("http://35.223.156.4:7019/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
+		req1.Header.Set("Content-Type", "application/json")
+		if err1 != nil {
+			log.Fatal("Post nuevo documento... ", err1)
+		}
+		defer req1.Body.Close() // cerramos el body
+
+		//Leyendo la respuesta del cuerpo
+		nuevo1, err1 := ioutil.ReadAll(req1.Body) //se convierte en cadena
+		if err1 != nil {
+			log.Fatal("Leyendo Respuesta desde el Post Http... ", err)
+		}
+		sb1 := string(nuevo1) //lo transformamos en una cadena
+		log.Printf(sb1)
 	}
 }
 
