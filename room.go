@@ -64,7 +64,7 @@ func subscribeMessages() {
 
 	for msg := range ch {
 		sendMsg(msg.Payload)
-		//sendMsg1(msg.Payload)
+		sendMsg1(msg.Payload)
 	}
 }
 
