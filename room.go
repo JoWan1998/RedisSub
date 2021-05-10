@@ -63,7 +63,7 @@ func subscribeMessages() {
 	ch := pubsub.Channel()
 
 	for msg := range ch {
-		sendMsg(msg.Payload)
+		//sendMsg(msg.Payload)
 		sendMsg1(msg.Payload)
 	}
 }
