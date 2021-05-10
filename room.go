@@ -63,19 +63,23 @@ func subscribeMessages() {
 	ch := pubsub.Channel()
 
 	for msg := range ch {
-		log.Println("Mensaje: ", string([]byte(msg.Payload)))
-		post := []byte(msg.Payload)                                                                                 //convertimos a una cadena de bytes
-		req, err := http.Post("http://34.66.140.170:8080/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
-		req.Header.Set("Content-Type", "application/json")
-		if err != nil {
-			log.Fatal("Post nuevo documento... ", err)
-		}
-		//http://35.223.156.4:7019/nuevoRegistro
-		req1, err1 := http.Post("http://35.223.156.4:7019/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
-		req1.Header.Set("Content-Type", "application/json")
-		if err1 != nil {
-			log.Fatal("Post nuevo documento... ", err1)
-		}
+		sendMsg(msg.Payload)
+	}
+}
+
+func sendMsg(msg string) {
+	log.Println("Mensaje: ", string([]byte(msg)))
+	post := []byte(msg)                                                                                         //convertimos a una cadena de bytes
+	req, err := http.Post("http://34.66.140.170:8080/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
+	req.Header.Set("Content-Type", "application/json")
+	if err != nil {
+		log.Fatal("Post nuevo documento... ", err)
+	}
+	//http://35.223.156.4:7019/nuevoRegistro
+	req1, err1 := http.Post("http://35.223.156.4:7019/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
+	req1.Header.Set("Content-Type", "application/json")
+	if err1 != nil {
+		log.Fatal("Post nuevo documento... ", err1)
 	}
 }
 
