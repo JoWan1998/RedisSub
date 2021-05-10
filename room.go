@@ -64,17 +64,23 @@ func subscribeMessages() {
 
 	for msg := range ch {
 		sendMsg(msg.Payload)
+		sendMsg1(msg.Payload)
 	}
 }
 
 func sendMsg(msg string) {
-	log.Println("Mensaje: ", string([]byte(msg)))
+	log.Println("Mensaje way1: ", string([]byte(msg)))
 	post := []byte(msg)                                                                                         //convertimos a una cadena de bytes
 	req, err := http.Post("http://34.66.140.170:8080/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
 	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
 		log.Fatal("Post nuevo documento... ", err)
 	}
+}
+
+func sendMsg1(msg string) {
+	log.Println("Mensaje way2: ", string([]byte(msg)))
+	post := []byte(msg)
 	//http://35.223.156.4:7019/nuevoRegistro
 	req1, err1 := http.Post("http://35.223.156.4:7019/nuevoRegistro", "application/json", bytes.NewBuffer(post)) //hacemos la peticion a la bd
 	req1.Header.Set("Content-Type", "application/json")
