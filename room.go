@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -42,12 +41,13 @@ func publishMessage(message []byte) {
 	}
 }
 */
-
+/*
 func createTask(w http.ResponseWriter, r *http.Request) {
 	requestAt := time.Now()
 	duration := time.Since(requestAt)
 	fmt.Fprintf(w, "Task scheduled in %+v", duration)
 }
+*/
 
 func subscribeMessages() {
 
@@ -65,8 +65,14 @@ func subscribeMessages() {
 	for msg := range ch {
 		log.Println("Mensaje way1: ", string([]byte(msg.Payload)))
 		post := []byte(msg.Payload)
-		SendPostRequest("http://34.66.140.170:8080/nuevoRegistro", post)
-		SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
+		storeResponse := SendPostRequest("http://34.66.140.170:8080/nuevoRegistro", post)
+		defer storeResponse.Body.Close()
+		bytes, _ = ioutil.ReadAll(storeResponse.Body)
+		fmt.Println(string(bytes))
+		storeResponse1 := SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
+		defer storeResponse1.Body.Close()
+		bytes, _ = ioutil.ReadAll(storeResponse1.Body)
+		fmt.Println(string(bytes))
 
 	}
 }
@@ -79,6 +85,7 @@ func SendPostRequest(url string, body []byte) *http.Response {
 	return response
 }
 
+/*
 func sendMsg(msg string) {
 	log.Println("Mensaje way1: ", string([]byte(msg)))
 	post := []byte(msg)                                                                                         //convertimos a una cadena de bytes
@@ -118,6 +125,7 @@ func sendMsg1(msg string) {
 	log.Printf(sb1)
 
 }
+*/
 
 /*
 func createTask(w http.ResponseWriter, r *http.Request) {
