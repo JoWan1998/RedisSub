@@ -62,17 +62,21 @@ func subscribeMessages() {
 	pubsub := redis.Subscribe(context.Background(), "mensaje")
 	log.Println("subscriber listen on... ")
 	ch := pubsub.Channel()
-	antes := ""
-
 	for msg := range ch {
-		log.Println(msg.Payload)
-		if antes != msg.Payload {
-			sendMsg(msg.Payload)
-			sendMsg1(msg.Payload)
-			antes = msg.Payload
-		}
+		log.Println("Mensaje way1: ", string([]byte(msg.Payload)))
+		post := []byte(msg.Payload)
+		SendPostRequest("http://34.66.140.170:8080/nuevoRegistro", post)
+		SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
 
 	}
+}
+
+func SendPostRequest(url string, body []byte) *http.Response {
+	response, err := http.Post(url, "application/json", bytes.NewReader(body))
+	if err != nil {
+		panic(err)
+	}
+	return response
 }
 
 func sendMsg(msg string) {
