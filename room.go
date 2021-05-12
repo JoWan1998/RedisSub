@@ -65,16 +65,37 @@ func subscribeMessages() {
 	for msg := range ch {
 		log.Println("Mensaje way1: ", string([]byte(msg.Payload)))
 		post := []byte(msg.Payload)
-		storeResponse := SendPostRequest("http://34.66.140.170:8080/nuevoRegistro", post)
-		defer storeResponse.Body.Close()
-		n, _ := ioutil.ReadAll(storeResponse.Body)
-		fmt.Println(string(n))
+
+		response := make(chan *http.Response)
+		response1 := make(chan *http.Response)
+
+		go SendPostAsync("http://34.66.140.170:8080/nuevoRegistro", post, response)
+		go SendPostAsync("http://35.223.156.4:7019/nuevoRegistro", post, response1)
+
+		Presponse := <-response
+		defer Presponse.Body.Close()
+		bytes, _ := ioutil.ReadAll(Presponse.Body)
+		fmt.Println(string(bytes))
+
+		Presponse1 := <-response1
+		defer Presponse1.Body.Close()
+		bytes1, _ := ioutil.ReadAll(Presponse1.Body)
+		fmt.Println(string(bytes1))
+
 		/*storeResponse1 := SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
 		defer storeResponse1.Body.Close()
 		n1, _ := ioutil.ReadAll(storeResponse1.Body)
 		fmt.Println(string(n1))*/
 
 	}
+}
+
+func SendPostAsync(url string, body []byte, rc chan *http.Response) {
+	response, err := http.Post(url, "application/json", bytes.NewReader(body))
+	if err != nil {
+		panic(err)
+	}
+	rc <- response
 }
 
 func SendPostRequest(url string, body []byte) *http.Response {
