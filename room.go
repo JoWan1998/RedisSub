@@ -84,6 +84,7 @@ func subscribeMessages() {
 		defer Presponse1.Body.Close()
 		bytes1, _ := ioutil.ReadAll(Presponse1.Body)
 		fmt.Println(string(bytes1))
+		continue
 
 		/*storeResponse1 := SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
 		defer storeResponse1.Body.Close()
