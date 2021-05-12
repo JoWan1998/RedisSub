@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -82,7 +83,7 @@ func sendMsg(msg string) {
 	nuevo, err := ioutil.ReadAll(req.Body) //se convierte en cadena
 	error_(err, "Leyendo Respuesta desde el Post Http")
 	sb := string(nuevo) //lo transformamos en una cadena
-	log.Printf(sb)  
+	log.Printf(sb)
 }
 
 func sendMsg1(msg string) {
@@ -102,7 +103,7 @@ func sendMsg1(msg string) {
 		log.Fatal("Leyendo Respuesta desde el Post Http... ", err1)
 	}
 	sb1 := string(nuevo1) //lo transformamos en una cadena
-	log.Printf(sb1)  
+	log.Printf(sb1)
 
 }
 
