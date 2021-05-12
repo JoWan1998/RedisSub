@@ -81,7 +81,9 @@ func sendMsg(msg string) {
 
 	//Leyendo la respuesta del cuerpo
 	nuevo, err := ioutil.ReadAll(req.Body) //se convierte en cadena
-	error_(err, "Leyendo Respuesta desde el Post Http")
+	if err != nil {
+		log.Fatal("Leyendo Respuesta desde el Post Http... ", err)
+	}
 	sb := string(nuevo) //lo transformamos en una cadena
 	log.Printf(sb)
 }
