@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -78,7 +77,7 @@ func subscribeMessages() {
 		Presponse := <-response
 		defer Presponse.Body.Close()
 		bytes, _ := ioutil.ReadAll(Presponse.Body)
-		fmt.Println(string(bytes))
+		log.Println(string(bytes))
 
 		/*
 			Presponse1 := <-response1
