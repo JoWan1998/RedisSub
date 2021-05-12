@@ -69,10 +69,10 @@ func subscribeMessages() {
 		defer storeResponse.Body.Close()
 		n, _ := ioutil.ReadAll(storeResponse.Body)
 		fmt.Println(string(n))
-		storeResponse1 := SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
+		/*storeResponse1 := SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
 		defer storeResponse1.Body.Close()
 		n1, _ := ioutil.ReadAll(storeResponse1.Body)
-		fmt.Println(string(n1))
+		fmt.Println(string(n1))*/
 
 	}
 }
