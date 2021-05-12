@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -73,6 +74,7 @@ func subscribeMessages() {
 		response1 := make(chan *http.Response)
 
 		go SendPostAsync("http://34.66.140.170:8080/nuevoRegistro", post, response)
+		time.Sleep(time.Duration(1) * time.Second)
 		go SendPostAsync("http://35.223.156.4:7019/nuevoRegistro", post, response1)
 
 		Presponse := <-response
