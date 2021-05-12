@@ -69,22 +69,20 @@ func subscribeMessages() {
 		post := []byte(msg.Payload)
 
 		response := make(chan *http.Response)
-		//response1 := make(chan *http.Response)
+		response1 := make(chan *http.Response)
 
 		go SendPostAsync("http://34.66.140.170:8080/nuevoRegistro", post, response)
-		//go SendPostAsync("http://35.223.156.4:7019/nuevoRegistro", post, response1)
+		go SendPostAsync("http://35.223.156.4:7019/nuevoRegistro", post, response1)
 
 		Presponse := <-response
 		defer Presponse.Body.Close()
 		bytes, _ := ioutil.ReadAll(Presponse.Body)
 		log.Println(string(bytes))
 
-		/*
-			Presponse1 := <-response1
-			defer Presponse1.Body.Close()
-			bytes1, _ := ioutil.ReadAll(Presponse1.Body)
-			fmt.Println(string(bytes1))
-			continue*/
+		Presponse1 := <-response1
+		defer Presponse1.Body.Close()
+		bytes1, _ := ioutil.ReadAll(Presponse1.Body)
+		log.Println(string(bytes1))
 
 		/*storeResponse1 := SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
 		defer storeResponse1.Body.Close()
