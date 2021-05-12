@@ -62,7 +62,10 @@ func subscribeMessages() {
 	pubsub := redis.Subscribe(context.Background(), "mensaje")
 	log.Println("subscriber listen on... ")
 	ch := pubsub.Channel()
+	a := 0
 	for msg := range ch {
+		log.Println(a)
+		a += 1
 		log.Println("Mensaje way1: ", string([]byte(msg.Payload)))
 		post := []byte(msg.Payload)
 
