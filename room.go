@@ -67,12 +67,12 @@ func subscribeMessages() {
 		post := []byte(msg.Payload)
 		storeResponse := SendPostRequest("http://34.66.140.170:8080/nuevoRegistro", post)
 		defer storeResponse.Body.Close()
-		bytes, _ = ioutil.ReadAll(storeResponse.Body)
-		fmt.Println(string(bytes))
+		n, _ := ioutil.ReadAll(storeResponse.Body)
+		fmt.Println(string(n))
 		storeResponse1 := SendPostRequest("http://35.223.156.4:7019/nuevoRegistro", post)
 		defer storeResponse1.Body.Close()
-		bytes, _ = ioutil.ReadAll(storeResponse1.Body)
-		fmt.Println(string(bytes))
+		n1, _ := ioutil.ReadAll(storeResponse1.Body)
+		fmt.Println(string(n1))
 
 	}
 }
