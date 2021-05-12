@@ -65,6 +65,7 @@ func subscribeMessages() {
 	antes := ""
 
 	for msg := range ch {
+		log.Println(msg.Payload)
 		if antes != msg.Payload {
 			sendMsg(msg.Payload)
 			sendMsg1(msg.Payload)
