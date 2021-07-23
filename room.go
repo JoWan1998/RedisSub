@@ -22,6 +22,8 @@ func CreateRedisClient() {
 	redis := redis.NewClient(opt)
 	Redis = redis
 	log.Println("Create connection...")
+	log.Println("communicate option...")
+	
 }
 */
 /*
